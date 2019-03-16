@@ -93,7 +93,7 @@ ul {
   left: 100px;
 }
 
-.pageHead select {
+.pageHead h2 {
   float: right;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 100%;
@@ -230,4 +230,8 @@ footer {
   border: 2px solid blue;
   border-radius: 5px;
   padding: 2%;
+}
+
+.saveForm {
+  display: inline-block;
 }

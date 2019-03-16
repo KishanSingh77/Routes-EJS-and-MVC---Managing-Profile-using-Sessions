@@ -37,11 +37,17 @@
               </a>
             </h5>
 
-            <a class="button " href="/profile/myItems?addItem=<%=item.itemCode%>" id="btnSave"> <span  id="loveBtnSave">&hearts;</span> Save it  
-             
-            </a>
-
-            <a class="button " href="/categories/feedback/<%=item.itemCode%>" id="btnRate"> <span  id="starBtnRate">&star;</span> Rate it   
+            <% let itemList=[]; for( let i =
+      0 ; i < output.length;i++){ itemList.push(output[i].item.itemCode); }%>
+<form action="/profile/myItems" method="post" class="saveForm">
+  <input type="hidden" name="itemCode" value=<%=item.itemCode%>>
+  <input type="hidden" name="itemList" value=<%=itemList%> >
+  <input type="hidden" name="action" value="save">
+  <input type="submit" value="Save"  > 
+ 
+</form>
+            
+            <a class="button " href="/categories/feedback/<%=item.itemCode%>" id="btnRate">  Rate it   
             
             </a> 
             

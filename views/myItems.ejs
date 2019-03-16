@@ -26,7 +26,6 @@
 
     <div class="container flex">
       <% include partials/site-navigation.ejs%>
-
       <div class=" productList">
         <div class="row">
           <div class="col-md-3"><strong>Product</strong></div>
@@ -39,29 +38,47 @@
         <div class="row">
           <hr />
         </div>
+        <!-- logic to find itemList-->
+        <% let itemList=[]; for( let i = 0 ; i < output.length;i++){
+        itemList.push(output[i].item.itemCode); }%>
 
-        <!---->
-
-        <% if(output.length>0){%> <% for(let i=0; i < output.length; i++) { %>
-
+        <!-- priniting the list of items that have been saved by the user--><%
+        if(output!==null||output!==undefined){%> <% for(let i=0; i <
+        output.length; i++) { %>
+        <!-- star rating generator logic -->
         <div class="row">
           <div class="col-md-3"><%= output[i].item.itemName %></div>
           <div class="col-md-1"><%= output[i].item.catalogCategory %></div>
           <div class="col-md-3">
-            <span id="starRatingProduct1"> <%= output[i].rating %></span>
-          </div>
-          <div class="col-md-1"><input type="checkbox" checked /></div>
-          <div class="col-md-2">
-            <button onclick="window.history.back();" class="btn btn-success">
-              Update
-            </button>
-          </div>
-          <div class="col-md-2">
-            <a
-              href="/profile/myItems?deleteItem=<%=item.itemCode%>"
-              class="btn btn-danger"
-              >&#9940; Delete</a
+            <span id="starRatingProduct1">
+              <% let starCount = output[i].rating;%> <% for( let j = 0 ; j <
+              5;++j){%> <% if(starCount>0){%> &#9733; <% starCount--;} else{ %>
+              &#9734; <% }} %></span
             >
+          </div>
+          <div class="col-md-1">
+            <input type="checkbox" id="madeIt" name="madeIt"
+            <%if(output[i].madeIt==true){%> checked="" <%}%> disabled/>
+          </div>
+
+          <div class="col-md-2">
+            <!-- update button initiates this form-->
+            <form action="/profile/myItems" method="post">
+              <input type="hidden" name="itemCode"
+              value=<%=output[i].item.itemCode%>>
+              <input type="hidden" name="action" value="updateProfile" />
+              <input type="hidden" name="itemList" value=<%=itemList%> >
+              <input type="submit" value="Update" class="btn-success" />
+            </form>
+          </div>
+          <div class="col-md-2">
+            <!-- delete button initiates this form-->
+            <form action="/profile/myItems" method="post">
+              <input type="hidden" name="itemCode"
+              value=<%=output[i].item.itemCode%>>
+              <input type="hidden" name="action" value="deleteItem" />
+              <input type="submit" value="Delete" class="btn-danger" />
+            </form>
           </div>
         </div>
         <div class="row">
